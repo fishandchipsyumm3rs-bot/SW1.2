@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <title>Country Nicknames</title>
+
+    <style>
+        :root {
+            --gold: #e8b923;
+            --gold-light: #f7dc6f;
+            --gold-dark: #b8860b;
+            --cream: #fff8e1;
+            --tea: #6b4423;
+            --beret: #3b2a1a;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            color: var(--tea);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255,255,255,.6) 0 3px, transparent 4px),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,.5) 0 2px, transparent 3px),
+                radial-gradient(circle at 50% 0%, var(--gold-light), transparent 60%),
+                linear-gradient(160deg, #fff3c4, #f5d76e 55%, #e0b030);
+            background-size: 80px 80px, 60px 60px, auto, auto;
+        }
+
+        #Main {
+            position: relative;
+            width: min(92%, 460px);
+            margin: 2rem 0;
+            padding: 2.5rem 2rem 1.5rem;
+            text-align: center;
+            background: var(--cream);
+            border: 3px solid var(--gold-dark);
+            border-radius: 22px;
+            box-shadow:
+                0 0 0 6px var(--cream),
+                0 0 0 8px var(--gold),
+                0 18px 40px rgba(107, 68, 35, .35);
+        }
+
+        /* drill-curl ribbons on the corners */
+        #Main::before, #Main::after {
+            content: "";
+            position: absolute;
+            top: -26px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 6px solid var(--gold);
+            border-right-color: transparent;
+            border-bottom-color: var(--gold-dark);
+        }
+        #Main::before { left: -20px; transform: rotate(-30deg); }
+        #Main::after  { right: -20px; transform: rotate(210deg); }
+
+        h1 {
+            margin: 0 0 .3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--beret);
+            letter-spacing: 1px;
+        }
+
+        /* soul gem */
+        .gem {
+            display: block;
+            width: 26px;
+            height: 38px;
+            margin: 0 auto .6rem;
+            background: radial-gradient(ellipse at 35% 30%, #fffbe0, var(--gold) 55%, var(--gold-dark));
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 14px 3px rgba(232, 185, 35, .8);
+        }
+
+        .subtitle {
+            margin: 0 0 1.4rem;
+            font-style: italic;
+            font-size: 1.15rem;
+        }
+
+        select {
+            width: 100%;
+            padding: .7rem 1rem;
+            font-family: inherit;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            color: var(--beret);
+            background: #fffdf2;
+            border: 2px solid var(--gold-dark);
+            border-radius: 12px;
+            outline: none;
+            cursor: pointer;
+        }
+        select:focus { box-shadow: 0 0 0 4px rgba(232, 185, 35, .5); }
+
+        button {
+            margin: 1rem 0;
+            padding: .7rem 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--beret);
+            background: linear-gradient(180deg, var(--gold-light), var(--gold));
+            border: 2px solid var(--gold-dark);
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--gold-dark);
+            transition: transform .1s, box-shadow .1s;
+        }
+        button:hover { filter: brightness(1.07); }
+        button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 var(--gold-dark);
+        }
+
+        #country_data {
+            min-height: 3.5rem;
+            margin-top: .5rem;
+            padding: 1rem;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--beret);
+            background: repeating-linear-gradient(135deg, #fff3c4, #fff3c4 10px, #fff8e1 10px, #fff8e1 20px);
+            border: 2px dashed var(--gold-dark);
+            border-radius: 14px;
+        }
+
+        .footer {
+            margin: 1.5rem 0 0;
+            padding-top: .8rem;
+            border-top: 1px solid var(--gold);
+            font-size: .95rem;
+            font-style: italic;
+            opacity: .85;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="Main">
+        <span class="gem"></span>
+        <h1>Country Nicknames</h1>
+        <p class="subtitle">Tea time in Central Europe ✦</p>
+
+        <select name="" id="countries">
+            <option value="Land of Music also the Land of Mountains"> austria</option>
+            <option value="Heart of Europe"> czech</option>
+            <option value="Land of Poets and Thinkers"> germany</option>
+            <option value="Land of Spas"> hungary</option>
+            <option value="The Principality in the Alps"> liechtenstein</option>
+            <option value="Land of Fields or the People of the Fields "> poland</option>
+            <option value="Land of Castles ">slovakia </option>
+            <option value="Green Heart of Europe">slovenia </option>
+            <option value="Land of Chocolate and Watches also known as Helvetia">switzerland </option>
+        </select>
+        <br>
+        <button py-click="search">Searchtime!!</button>
+        <br>
+        <div id="country_data"></div>
+
+        <p class="footer">The Regional Database || SW1.2 || Magsino</p>
+    </div>
+
+    <py-script src="main.py"></py-script>
+</body>
+</html>
